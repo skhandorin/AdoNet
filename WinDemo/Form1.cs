@@ -25,5 +25,23 @@ namespace WinDemo
             DataLayer.DB.ConnectionTimeout = 30;
             SqlConnection conn = DataLayer.DB.GetSqlConnection();
         }
+
+        private void buttonGetEmployee_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var es = new DataLayer.Employees();
+                var employee = es.GetEmployee(int.Parse(textBoxEID.Text));
+
+                textBoxFName.Text = employee.FirstName;
+                textBoxLName.Text = employee.LastName;
+                textBoxDName.Text = employee.DepartmentName;
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
     }
 }
