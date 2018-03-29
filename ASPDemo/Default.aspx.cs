@@ -17,5 +17,22 @@ namespace ASPDemo
             DataLayer.DB.ConnectionTimeout = 30;
             SqlConnection conn = DataLayer.DB.GetSqlConnection();
         }
+
+        protected void LinkButtonGetEmployee_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var es = new DataLayer.Employees();
+                var employee = es.GetEmployee(int.Parse(TextBoxEID.Text));
+
+                TextBoxFName.Text = employee.FirstName;
+                TextBoxLName.Text = employee.LastName;
+                TextBoxDName.Text = employee.DepartmentName;
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+        }
     }
 }

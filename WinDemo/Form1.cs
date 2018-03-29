@@ -39,7 +39,6 @@ namespace WinDemo
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }

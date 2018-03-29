@@ -11,6 +11,11 @@ namespace DataLayer
     {
         public List<Employee> EmployeeList { get; set; }
 
+        /// <summary>
+        /// Returns an employee using Inline SQL
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public Employee GetEmployee(int employeeId)
         {
             var e = new Employee();
@@ -27,7 +32,7 @@ select *
 	join HumanResources.Department d on d.DepartmentID = eh.DepartmentID
   where e.BusinessEntityID = {0}";
                     cmd.CommandText = string.Format(cmd.CommandText, employeeId.ToString());
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
 
                     if (reader.Read())
                     {
