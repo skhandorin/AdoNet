@@ -28,6 +28,9 @@ namespace WinDemo
                 DataLayer.DB.ApplicationName = this.AppName;
                 DataLayer.DB.ConnectionTimeout = 3;
                 SqlConnection conn = DataLayer.DB.GetSqlConnection();
+
+                DataTable tableLog = DataLayer.ApplicatioLog.GetLog(this.AppName);
+                dataGridViewAppLog.DataSource = tableLog;
             }
             catch (SqlException sqlex)
             {
@@ -88,6 +91,21 @@ namespace WinDemo
             catch (SqlException sqlex)
             {
                 // Connection error...
+                MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch { }
+        }
+
+        private void buttonUpdateLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable table = (DataTable)dataGridViewAppLog.DataSource;
+                DataTable tableRes = DataLayer.ApplicatioLog.UpdateLogChanges(table);
+                dataGridViewAppLog.DataSource = tableRes;
+            }
+            catch (SqlException sqlex)
+            {
                 MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch { }

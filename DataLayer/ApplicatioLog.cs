@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -144,6 +145,49 @@ namespace DataLayer
                     
                 }
             }
+        }
+
+        /// <summary>
+        /// Retrieves applicaion log details for a given application
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <returns></returns>
+        public static DataTable GetLog(string appName)
+        {
+            DataTable table = new DataTable("ApplicationLog");
+            SqlDataAdapter dataAdapter = null;
+
+            using (var conn = DB.GetSqlConnection())
+            {
+                var cmd = new SqlCommand("select * from ApplicationLog where application_name = @appname", conn);
+                cmd.Parameters.Add(new SqlParameter("appname", SqlDbType.NVarChar, 100));
+                cmd.Parameters["appname"].Value = appName;
+
+                dataAdapter = new SqlDataAdapter(cmd);
+
+                int res = dataAdapter.Fill(table);
+            }
+
+            return table;
+        }
+
+        /// <summary>
+        /// Applies the INSERT, DELETE and UPDATE operations from the disconnected data table 
+        /// </summary>
+        /// <param name="tableLog"></param>
+        /// <returns></returns>
+        public static DataTable UpdateLogChanges(DataTable tableLog)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+
+            using (var conn = DB.GetSqlConnection())
+            {
+                da.SelectCommand = new SqlCommand("select * from ApplicationLog", conn);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(da);
+                int res = da.Update(tableLog);
+            }
+
+            return tableLog;
         }
     }
 }

@@ -40,6 +40,9 @@
             this.buttonDeleteLog = new System.Windows.Forms.Button();
             this.linkLabelUpdateDepartmentName = new System.Windows.Forms.LinkLabel();
             this.labelDepartmentId = new System.Windows.Forms.Label();
+            this.dataGridViewAppLog = new System.Windows.Forms.DataGridView();
+            this.buttonUpdateLog = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppLog)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -118,7 +121,7 @@
             // 
             // buttonDeleteLog
             // 
-            this.buttonDeleteLog.Location = new System.Drawing.Point(15, 229);
+            this.buttonDeleteLog.Location = new System.Drawing.Point(12, 375);
             this.buttonDeleteLog.Name = "buttonDeleteLog";
             this.buttonDeleteLog.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteLog.TabIndex = 6;
@@ -146,11 +149,31 @@
             this.labelDepartmentId.TabIndex = 8;
             this.labelDepartmentId.Text = "0";
             // 
+            // dataGridViewAppLog
+            // 
+            this.dataGridViewAppLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAppLog.Location = new System.Drawing.Point(15, 156);
+            this.dataGridViewAppLog.Name = "dataGridViewAppLog";
+            this.dataGridViewAppLog.Size = new System.Drawing.Size(574, 213);
+            this.dataGridViewAppLog.TabIndex = 9;
+            // 
+            // buttonUpdateLog
+            // 
+            this.buttonUpdateLog.Location = new System.Drawing.Point(118, 374);
+            this.buttonUpdateLog.Name = "buttonUpdateLog";
+            this.buttonUpdateLog.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateLog.TabIndex = 10;
+            this.buttonUpdateLog.Text = "Update Log";
+            this.buttonUpdateLog.UseVisualStyleBackColor = true;
+            this.buttonUpdateLog.Click += new System.EventHandler(this.buttonUpdateLog_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 264);
+            this.ClientSize = new System.Drawing.Size(601, 410);
+            this.Controls.Add(this.buttonUpdateLog);
+            this.Controls.Add(this.dataGridViewAppLog);
             this.Controls.Add(this.labelDepartmentId);
             this.Controls.Add(this.linkLabelUpdateDepartmentName);
             this.Controls.Add(this.buttonDeleteLog);
@@ -166,6 +189,7 @@
             this.Name = "Form1";
             this.Text = "WinDemo Application";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppLog)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,6 +209,8 @@
         private System.Windows.Forms.Button buttonDeleteLog;
         private System.Windows.Forms.LinkLabel linkLabelUpdateDepartmentName;
         private System.Windows.Forms.Label labelDepartmentId;
+        private System.Windows.Forms.DataGridView dataGridViewAppLog;
+        private System.Windows.Forms.Button buttonUpdateLog;
     }
 }
 
