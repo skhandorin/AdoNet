@@ -50,6 +50,9 @@
             </table>
         </div>
         <asp:LinkButton ID="LinkButtonDeleteLog" runat="server" OnClick="LinkButtonDeleteLog_Click">Delete Log</asp:LinkButton>
+        <br />
+        <br />
+        <asp:Label ID="LabelError" runat="server" Font-Bold="True" ForeColor="#FF3300"></asp:Label>
     </form>
 </body>
 </html>

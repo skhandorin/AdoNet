@@ -22,10 +22,18 @@ namespace WinDemo
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connString = DataLayer.DB.ConnectionString;
-            DataLayer.DB.ApplicationName = this.AppName;
-            DataLayer.DB.ConnectionTimeout = 30;
-            SqlConnection conn = DataLayer.DB.GetSqlConnection();
+            try
+            {
+                string connString = DataLayer.DB.ConnectionString;
+                DataLayer.DB.ApplicationName = this.AppName;
+                DataLayer.DB.ConnectionTimeout = 3;
+                SqlConnection conn = DataLayer.DB.GetSqlConnection();
+            }
+            catch (SqlException sqlex)
+            {
+                // Connection error...
+                MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonGetEmployee_Click(object sender, EventArgs e)
@@ -42,10 +50,12 @@ namespace WinDemo
 
                 DataLayer.ApplicatioLog.Add4($"Searched for user id: {textBoxEID.Text}");
             }
-            catch (Exception)
+            catch (SqlException sqlex)
             {
-                //throw;
+                // Connection error...
+                MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (Exception) { }
         }
 
         private void buttonDeleteLog_Click(object sender, EventArgs e)
@@ -54,10 +64,12 @@ namespace WinDemo
             {
                 DataLayer.ApplicatioLog.DeleteCommentsForApp(this.AppName);
             }
-            catch (Exception)
+            catch (SqlException sqlex)
             {
-                //throw;
+                // Connection error...
+                MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (Exception) { }
         }
 
         private void linkLabelUpdateDepartmentName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -72,6 +84,11 @@ namespace WinDemo
                     employees.UpdateDepartmentName(departmentId, textBoxDName.Text);
 
                 }
+            }
+            catch (SqlException sqlex)
+            {
+                // Connection error...
+                MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch { }
         }

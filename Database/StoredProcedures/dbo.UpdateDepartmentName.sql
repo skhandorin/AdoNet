@@ -7,6 +7,13 @@ create procedure dbo.UpdateDepartmentName
 as
   --set nocount on
 
+  if (@name = 'test')
+  begin;
+    throw 50001, 'invalid department name', 1;
+    --raiserror('invalid department name', 16, 1)
+    --return
+  end;
+
   update HumanResources.Department
     set Name = @name
     where DepartmentID = @id
@@ -14,7 +21,7 @@ as
 GO
 /*
 declare @out int
-exec @out = dbo.UpdateDepartmentName 16, 'UPD-Executive'
+exec @out = dbo.UpdateDepartmentName 16, 'Executive'
 select @out
 select * from HumanResources.Department
 

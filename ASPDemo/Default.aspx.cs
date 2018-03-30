@@ -12,10 +12,20 @@ namespace ASPDemo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string connString = DataLayer.DB.ConnectionString;
-            DataLayer.DB.ApplicationName = "ASPDemo Application";
-            DataLayer.DB.ConnectionTimeout = 30;
-            SqlConnection conn = DataLayer.DB.GetSqlConnection();
+            if (!Page.IsPostBack)
+                LabelError.Text = "";
+
+            try
+            {
+                string connString = DataLayer.DB.ConnectionString;
+                DataLayer.DB.ApplicationName = "ASPDemo Application";
+                DataLayer.DB.ConnectionTimeout = 5;
+                SqlConnection conn = DataLayer.DB.GetSqlConnection();
+            }
+            catch (SqlException sqlex)
+            {
+                LabelError.Text = sqlex.Message;
+            }
         }
 
         protected void LinkButtonGetEmployee_Click(object sender, EventArgs e)
@@ -31,6 +41,10 @@ namespace ASPDemo
                 LabelDepartmentId.Text = employee.DepartmentId.ToString();
 
                 DataLayer.ApplicatioLog.Add4("Searched for user id: " + TextBoxEID.Text);
+            }
+            catch (SqlException sqlex)
+            {
+                LabelError.Text = sqlex.Message;
             }
             catch (Exception)
             {
@@ -51,6 +65,10 @@ namespace ASPDemo
 
                 }
             }
+            catch (SqlException sqlex)
+            {
+                LabelError.Text = sqlex.Message;
+            }
             catch { }
         }
 
@@ -59,6 +77,10 @@ namespace ASPDemo
             try
             {
                 DataLayer.ApplicatioLog.DeleteCommentsForApp("ASPDemo Application");
+            }
+            catch (SqlException sqlex)
+            {
+                LabelError.Text = sqlex.Message;
             }
             catch { }
         }
