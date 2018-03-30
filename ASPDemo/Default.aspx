@@ -38,14 +38,18 @@
                     <td>Department</td>
                     <td>
                         <asp:TextBox ID="TextBoxDName" runat="server"></asp:TextBox>
+                        <asp:LinkButton ID="LinkButtonUpdateDepartmentName" runat="server" OnClick="LinkButtonUpdateDepartmentName_Click">Update</asp:LinkButton>
                     </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
+                    <td>
+                        <asp:Label ID="LabelDepartmentId" runat="server" Text="0"></asp:Label>
+                    </td>
                     <td>&nbsp;</td>
                 </tr>
             </table>
         </div>
+        <asp:LinkButton ID="LinkButtonDeleteLog" runat="server" OnClick="LinkButtonDeleteLog_Click">Delete Log</asp:LinkButton>
     </form>
 </body>
 </html>

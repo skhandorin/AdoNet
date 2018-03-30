@@ -28,11 +28,39 @@ namespace ASPDemo
                 TextBoxFName.Text = employee.FirstName;
                 TextBoxLName.Text = employee.LastName;
                 TextBoxDName.Text = employee.DepartmentName;
+                LabelDepartmentId.Text = employee.DepartmentId.ToString();
+
+                DataLayer.ApplicatioLog.Add4("Searched for user id: " + TextBoxEID.Text);
             }
             catch (Exception)
             {
                 //throw;
             }
+        }
+
+        protected void LinkButtonUpdateDepartmentName_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // A search must first be performed
+                if (TextBoxEID.Text.Length > 0 && TextBoxDName.Text.Length > 0)
+                {
+                    DataLayer.Employees employees = new DataLayer.Employees();
+                    int departmentId = int.Parse(LabelDepartmentId.Text);
+                    employees.UpdateDepartmentName(departmentId, TextBoxDName.Text);
+
+                }
+            }
+            catch { }
+        }
+
+        protected void LinkButtonDeleteLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataLayer.ApplicatioLog.DeleteCommentsForApp("ASPDemo Application");
+            }
+            catch { }
         }
     }
 }

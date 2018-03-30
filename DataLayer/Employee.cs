@@ -12,11 +12,45 @@ namespace DataLayer
         public List<Employee> EmployeeList { get; set; }
 
         /// <summary>
-        /// Returns an employee using Inline SQL
+        /// Returns an employee using a stored procedure
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
         public Employee GetEmployee(int employeeId)
+        {
+            var e = new Employee();
+
+            using (SqlConnection conn = DB.GetSqlConnection())
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"GetEmployeeDetails";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var p1 = new SqlParameter("businessEntityID", System.Data.SqlDbType.Int)
+                    {
+                        Value = employeeId
+                    };
+                    cmd.Parameters.Add(p1);
+
+                    SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                    if (reader.Read())
+                    {
+                        e.Load(reader);
+                    }
+                }
+            }
+
+            return e;
+        }
+
+        /// <summary>
+        /// Returns an employee using Inline SQL
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeDONOTCALL(int employeeId)
         {
             var e = new Employee();
 
@@ -42,6 +76,34 @@ select *
             }
 
             return e;
+        }
+
+        /// <summary>
+        /// Update the name of a department given its ID
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <param name="newName"></param>
+        public void UpdateDepartmentName(int departmentId, string newName)
+        {
+            using (SqlConnection conn = DB.GetSqlConnection())
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UpdateDepartmentName";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var p1 = new SqlParameter("id", System.Data.SqlDbType.Int);
+                    p1.Value = departmentId;
+                    cmd.Parameters.Add(p1);
+
+                    var p2 = new SqlParameter("name", System.Data.SqlDbType.NVarChar, 100);
+                    p2.Value = newName;
+                    cmd.Parameters.Add(p2);
+
+                    int res = cmd.ExecuteNonQuery();
+
+                }
+            }
         }
     }
 
