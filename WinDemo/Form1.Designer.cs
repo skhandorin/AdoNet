@@ -42,6 +42,9 @@
             this.labelDepartmentId = new System.Windows.Forms.Label();
             this.dataGridViewAppLog = new System.Windows.Forms.DataGridView();
             this.buttonUpdateLog = new System.Windows.Forms.Button();
+            this.listViewStats = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -154,7 +157,7 @@
             this.dataGridViewAppLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAppLog.Location = new System.Drawing.Point(15, 156);
             this.dataGridViewAppLog.Name = "dataGridViewAppLog";
-            this.dataGridViewAppLog.Size = new System.Drawing.Size(574, 213);
+            this.dataGridViewAppLog.Size = new System.Drawing.Size(465, 213);
             this.dataGridViewAppLog.TabIndex = 9;
             // 
             // buttonUpdateLog
@@ -167,11 +170,34 @@
             this.buttonUpdateLog.UseVisualStyleBackColor = true;
             this.buttonUpdateLog.Click += new System.EventHandler(this.buttonUpdateLog_Click);
             // 
+            // listViewStats
+            // 
+            this.listViewStats.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewStats.Location = new System.Drawing.Point(486, 9);
+            this.listViewStats.Name = "listViewStats";
+            this.listViewStats.Size = new System.Drawing.Size(278, 360);
+            this.listViewStats.TabIndex = 11;
+            this.listViewStats.UseCompatibleStateImageBehavior = false;
+            this.listViewStats.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Statistic";
+            this.columnHeader1.Width = 90;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Value";
+            this.columnHeader2.Width = 90;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 410);
+            this.ClientSize = new System.Drawing.Size(786, 410);
+            this.Controls.Add(this.listViewStats);
             this.Controls.Add(this.buttonUpdateLog);
             this.Controls.Add(this.dataGridViewAppLog);
             this.Controls.Add(this.labelDepartmentId);
@@ -211,6 +237,9 @@
         private System.Windows.Forms.Label labelDepartmentId;
         private System.Windows.Forms.DataGridView dataGridViewAppLog;
         private System.Windows.Forms.Button buttonUpdateLog;
+        private System.Windows.Forms.ListView listViewStats;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 

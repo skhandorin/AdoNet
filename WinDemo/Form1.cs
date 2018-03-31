@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace WinDemo
 {
@@ -44,7 +45,11 @@ namespace WinDemo
             try
             {
                 var es = new DataLayer.Employees();
+
+                DataLayer.DB.EnableStatistics = true;
                 var employee = es.GetEmployee(int.Parse(textBoxEID.Text));
+                RefreshStatistics(DataLayer.DB.LastStatistics);
+                DataLayer.DB.EnableStatistics = false;
 
                 textBoxFName.Text = employee.FirstName;
                 textBoxLName.Text = employee.LastName;
@@ -101,7 +106,10 @@ namespace WinDemo
             try
             {
                 DataTable table = (DataTable)dataGridViewAppLog.DataSource;
+                DataLayer.DB.EnableStatistics = true;
                 DataTable tableRes = DataLayer.ApplicatioLog.UpdateLogChanges(table);
+                RefreshStatistics(DataLayer.DB.LastStatistics);
+                DataLayer.DB.EnableStatistics = false;
                 dataGridViewAppLog.DataSource = tableRes;
             }
             catch (SqlException sqlex)
@@ -109,6 +117,17 @@ namespace WinDemo
                 MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch { }
+        }
+
+        private void RefreshStatistics(ConnectionStatistics connectionStatistics)
+        {
+            listViewStats.Items.Clear();
+            foreach (string key in connectionStatistics.OriginalStats.Keys)
+            {
+                ListViewItem lvi = new ListViewItem(key);
+                lvi.SubItems.Add(connectionStatistics.OriginalStats[key].ToString());
+                listViewStats.Items.Add(lvi);
+            }
         }
     }
 }

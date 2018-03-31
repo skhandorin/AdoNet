@@ -47,6 +47,12 @@
                     </td>
                     <td>&nbsp;</td>
                 </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:GridView ID="GridViewAppLog" runat="server">
+                        </asp:GridView>
+                    </td>
+                </tr>
             </table>
         </div>
         <asp:LinkButton ID="LinkButtonDeleteLog" runat="server" OnClick="LinkButtonDeleteLog_Click">Delete Log</asp:LinkButton>

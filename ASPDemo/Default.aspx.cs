@@ -13,18 +13,23 @@ namespace ASPDemo
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
+            {
                 LabelError.Text = "";
 
-            try
-            {
-                string connString = DataLayer.DB.ConnectionString;
-                DataLayer.DB.ApplicationName = "ASPDemo Application";
-                DataLayer.DB.ConnectionTimeout = 5;
-                SqlConnection conn = DataLayer.DB.GetSqlConnection();
-            }
-            catch (SqlException sqlex)
-            {
-                LabelError.Text = sqlex.Message;
+                try
+                {
+                    string connString = DataLayer.DB.ConnectionString;
+                    DataLayer.DB.ApplicationName = "ASPDemo Application";
+                    DataLayer.DB.ConnectionTimeout = 5;
+                    SqlConnection conn = DataLayer.DB.GetSqlConnection();
+
+                    GridViewAppLog.DataSource = DataLayer.ApplicatioLog.GetLog("ASPDemo Application");
+                    GridViewAppLog.DataBind();
+                }
+                catch (SqlException sqlex)
+                {
+                    LabelError.Text = sqlex.Message;
+                }
             }
         }
 
@@ -41,6 +46,9 @@ namespace ASPDemo
                 LabelDepartmentId.Text = employee.DepartmentId.ToString();
 
                 DataLayer.ApplicatioLog.Add4("Searched for user id: " + TextBoxEID.Text);
+
+                GridViewAppLog.DataSource = DataLayer.ApplicatioLog.GetLog("ASPDemo Application");
+                GridViewAppLog.DataBind();
             }
             catch (SqlException sqlex)
             {

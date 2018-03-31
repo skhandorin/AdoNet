@@ -184,6 +184,10 @@ namespace DataLayer
             {
                 da.SelectCommand = new SqlCommand("select * from ApplicationLog", conn);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(da);
+
+                // Perform up to 100 changes at once to minimize roundtrips
+                da.UpdateBatchSize = 100;
+
                 int res = da.Update(tableLog);
             }
 
