@@ -9,3 +9,5 @@ create table dbo.ApplicationLog(
 select * from ApplicationLog
 
 */
+
+alter table dbo.ApplicationLog add last_updates_on timestamp

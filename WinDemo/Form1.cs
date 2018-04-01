@@ -55,8 +55,13 @@ namespace WinDemo
                 textBoxLName.Text = employee.LastName;
                 textBoxDName.Text = employee.DepartmentName;
                 labelDepartmentId.Text = employee.DepartmentId.ToString();
+                labelOldName.Text = employee.DepartmentName;
+                labelOldName.Visible = true;
 
                 DataLayer.ApplicatioLog.Add4($"Searched for user id: {textBoxEID.Text}");
+
+                DataTable tableLog = DataLayer.ApplicatioLog.GetLog(this.AppName);
+                dataGridViewAppLog.DataSource = tableLog;
             }
             catch (SqlException sqlex)
             {
@@ -71,6 +76,9 @@ namespace WinDemo
             try
             {
                 DataLayer.ApplicatioLog.DeleteCommentsForApp(this.AppName);
+
+                DataTable tableLog = DataLayer.ApplicatioLog.GetLog(this.AppName);
+                dataGridViewAppLog.DataSource = tableLog;
             }
             catch (SqlException sqlex)
             {
@@ -89,8 +97,9 @@ namespace WinDemo
                 {
                     DataLayer.Employees employees = new DataLayer.Employees();
                     int departmentId = int.Parse(labelDepartmentId.Text);
-                    employees.UpdateDepartmentName(departmentId, textBoxDName.Text);
+                    employees.UpdateDepartmentName(departmentId, textBoxDName.Text, labelOldName.Text);
 
+                    buttonGetEmployee_Click(sender, null);
                 }
             }
             catch (SqlException sqlex)
@@ -116,6 +125,10 @@ namespace WinDemo
             {
                 MessageBox.Show(this, sqlex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (DBConcurrencyException cex)
+            {
+                MessageBox.Show(this, cex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch { }
         }
 
@@ -128,6 +141,11 @@ namespace WinDemo
                 lvi.SubItems.Add(connectionStatistics.OriginalStats[key].ToString());
                 listViewStats.Items.Add(lvi);
             }
+        }
+
+        private void dataGridViewAppLog_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

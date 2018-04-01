@@ -125,6 +125,15 @@ namespace DataLayer
         }
 
         /// <summary>
+        /// Deletes application log with an audit record
+        /// </summary>
+        /// <param name="appName"></param>
+        public static void DeleteCommentsForAppWithAudit(string appName)
+        {
+
+        }
+
+        /// <summary>
         /// Delete all comments for a specific application
         /// </summary>
         /// <param name="appName"></param>
@@ -132,18 +141,17 @@ namespace DataLayer
         {
             using (SqlConnection conn = DB.GetSqlConnection())
             {
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"DeleteAppLog";
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                 using (SqlCommand cmd = conn.CreateCommand())
+                 {
+                        cmd.CommandText = @"DeleteAppLog";
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    var p1 = new SqlParameter("appName", System.Data.SqlDbType.NVarChar, 100);
-                    p1.Value = appName;
-                    cmd.Parameters.Add(p1);
+                        var p1 = new SqlParameter("appName", System.Data.SqlDbType.NVarChar, 100);
+                        p1.Value = appName;
+                        cmd.Parameters.Add(p1);
 
-                    int res = cmd.ExecuteNonQuery();
-                    
-                }
+                        int res = cmd.ExecuteNonQuery();
+                 }
             }
         }
 
@@ -187,6 +195,7 @@ namespace DataLayer
 
                 // Perform up to 100 changes at once to minimize roundtrips
                 da.UpdateBatchSize = 100;
+                commandBuilder.ConflictOption = ConflictOption.CompareRowVersion;
 
                 int res = da.Update(tableLog);
             }
