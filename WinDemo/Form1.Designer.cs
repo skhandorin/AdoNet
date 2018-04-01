@@ -45,6 +45,7 @@
             this.listViewStats = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelOldName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,6 +160,7 @@
             this.dataGridViewAppLog.Name = "dataGridViewAppLog";
             this.dataGridViewAppLog.Size = new System.Drawing.Size(465, 213);
             this.dataGridViewAppLog.TabIndex = 9;
+            this.dataGridViewAppLog.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewAppLog_DataError);
             // 
             // buttonUpdateLog
             // 
@@ -192,11 +194,21 @@
             this.columnHeader2.Text = "Value";
             this.columnHeader2.Width = 90;
             // 
+            // labelOldName
+            // 
+            this.labelOldName.AutoSize = true;
+            this.labelOldName.Location = new System.Drawing.Point(115, 139);
+            this.labelOldName.Name = "labelOldName";
+            this.labelOldName.Size = new System.Drawing.Size(0, 13);
+            this.labelOldName.TabIndex = 12;
+            this.labelOldName.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 410);
+            this.Controls.Add(this.labelOldName);
             this.Controls.Add(this.listViewStats);
             this.Controls.Add(this.buttonUpdateLog);
             this.Controls.Add(this.dataGridViewAppLog);
@@ -240,6 +252,7 @@
         private System.Windows.Forms.ListView listViewStats;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Label labelOldName;
     }
 }
 

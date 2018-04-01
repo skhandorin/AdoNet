@@ -83,7 +83,7 @@ select *
         /// </summary>
         /// <param name="departmentId"></param>
         /// <param name="newName"></param>
-        public void UpdateDepartmentName(int departmentId, string newName)
+        public void UpdateDepartmentName(int departmentId, string newName, string oldName = null)
         {
             using (SqlConnection conn = DB.GetSqlConnection())
             {
@@ -99,6 +99,10 @@ select *
                     var p2 = new SqlParameter("name", System.Data.SqlDbType.NVarChar, 100);
                     p2.Value = newName;
                     cmd.Parameters.Add(p2);
+
+                    var p3 = new SqlParameter("oldname", System.Data.SqlDbType.NVarChar, 100);
+                    p3.Value = oldName;
+                    cmd.Parameters.Add(p3);
 
                     int res = cmd.ExecuteNonQuery();
 
